@@ -1,0 +1,74 @@
+<h1 class="page-header">Admin Page</h1>
+
+
+<ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#home">Home</a></li>
+    <li><a data-toggle="tab" href="#menu1">Categories</a></li>
+    <li><a data-toggle="tab" href="#menu2">Products</a></li>
+</ul>
+
+<div class="tab-content">
+    <div id="home" class="tab-pane fade in active">
+        <h3>Categories</h3>
+        <button type="button" class="btn btn-info" data-toggle="modal" (click)="selectCat(c)"
+                data-target="#createCat">Edit
+        </button>
+        <div class="container">
+
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let c of categories">
+                    <td>{{c?.Name}}</td>
+
+                    <td>
+                        <button type="button" class="btn btn-info" data-toggle="modal" (click)="selectCat(c)"
+                                data-target="#editCategory">Edit
+                        </button>
+
+                    </td>
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div id="menu1" class="tab-pane fade">
+        <h3>Products</h3>
+
+    </div>
+    <div id="menu2" class="tab-pane fade">
+        <h3>Menu 2</h3>
+        <p>Some content in menu 2.</p>
+    </div>
+</div>
+<!--MODALS-->
+<!-- Modal -->
+<div id="createCat" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">New Category</h4>
+            </div>
+            <div class="modal-body">
+                <div style="margin-bottom: 25px" class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                    <input type="text" class="form-control" name="newCat" [(ngModel)]="newCat.name">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" (click)="createCat()">Save</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
