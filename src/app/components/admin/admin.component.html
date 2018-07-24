@@ -2,53 +2,146 @@
 
 
 <ul class="nav nav-tabs">
-    <li class="active"><a data-toggle="tab" href="#home">Home</a></li>
-    <li><a data-toggle="tab" href="#menu1">Categories</a></li>
-    <li><a data-toggle="tab" href="#menu2">Products</a></li>
+    <li class="active"><a data-toggle="tab" href="#Categories">Categories</a></li>
+    <li><a data-toggle="tab" href="#Products">Products</a></li>
+    <li><a data-toggle="tab" href="#Users">Users</a></li>
+
 </ul>
 
 <div class="tab-content">
-    <div id="home" class="tab-pane fade in active">
+
+    <div id="Categories" class="tab-pane fade in active">
         <h3>Categories</h3>
-        <button type="button" class="btn btn-info" data-toggle="modal" (click)="selectCat(c)"
-                data-target="#createCat">Edit
-        </button>
+
         <div class="container">
+            <div class="row">
+                <div class="col-sm-10">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let c of categories">
+                            <td>{{c?.name}}</td>
 
-            <table class="table table-hover">
-                <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Actions</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr *ngFor="let c of categories">
-                    <td>{{c?.Name}}</td>
+                            <td>
+                                <button type="button" class="btn btn-info" data-toggle="modal" (click)="selectCat(c)"
+                                        data-target="#editCat">Edit
+                                </button>
+                                <button type="button" class="btn btn-danger" (click)="deleteCat(c)">Delete</button>
 
-                    <td>
-                        <button type="button" class="btn btn-info" data-toggle="modal" (click)="selectCat(c)"
-                                data-target="#editCategory">Edit
-                        </button>
+                            </td>
+                        </tr>
 
-                    </td>
-                </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-sm-2">
+                    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#createCat">Add
+                    </button>
 
-                </tbody>
-            </table>
+                </div>
+            </div>
+
         </div>
     </div>
-    <div id="menu1" class="tab-pane fade">
+    <div id="Products" class="tab-pane fade">
         <h3>Products</h3>
 
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-10">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Price</th>
+                            <th>Category</th>
+                            <th>Image</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let c of products">
+                            <td>{{c?.name}}</td>
+                            <td>{{c?.price}}</td>
+                            <td>{{c?.category.name}}</td>
+                            <td><img style="width:50px;height: 50px;" [src]="c.image" alt=""></td>
+
+
+                            <td>
+                                <button type="button" class="btn btn-info" data-toggle="modal"
+                                        (click)="selectProduct(c)"
+                                        data-target="#editProduct">Edit
+                                </button>
+                                <button type="button" class="btn btn-danger" (click)="deleteProduct(c)">Delete</button>
+
+                            </td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-sm-2">
+                    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#createProduct">
+                        Add
+                    </button>
+
+                </div>
+            </div>
+
+        </div>
     </div>
-    <div id="menu2" class="tab-pane fade">
-        <h3>Menu 2</h3>
-        <p>Some content in menu 2.</p>
+
+    <div id="Users" class="tab-pane fade">
+        <h3>Users</h3>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-10">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>Email</th>
+                            <th>Password</th>
+
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let c of users">
+                            <td>{{c?.email}}</td>
+                            <td>{{c?.password}}</td>
+                            <td>
+                                <button type="button" class="btn btn-info" data-toggle="modal" (click)="selectUser(c)"
+                                        data-target="#editUser">Edit
+                                </button>
+                                <button type="button" class="btn btn-danger" (click)="deleteUser(c)">Delete</button>
+
+                            </td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-sm-2">
+                    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#createUser">
+                        Add
+                    </button>
+
+                </div>
+            </div>
+
+        </div>
     </div>
 </div>
 <!--MODALS-->
 <!-- Modal -->
+
+<!-- CATEGORIES -->
 <div id="createCat" class="modal fade" role="dialog">
     <div class="modal-dialog">
 
@@ -59,13 +152,170 @@
                 <h4 class="modal-title">New Category</h4>
             </div>
             <div class="modal-body">
-                <div style="margin-bottom: 25px" class="input-group">
-                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                    <input type="text" class="form-control" name="newCat" [(ngModel)]="newCat.name">
-                </div>
+                <input type="text" class="form-control" name="newCat" [(ngModel)]="newCat.name">
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" (click)="createCat()">Save</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div id="editCat" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Edit Category</h4>
+            </div>
+            <div class="modal-body">
+                <input type="text" class="form-control" name="newCat" [ngModel]="selectedCat?.name"
+                       (ngModelChange)="selectedCat.name=$event">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" (click)="updateCategory()">Save</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!--PRODUCTS-->
+<div id="createProduct" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">New Product</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="">Name:</label>
+                    <input type="text" class="form-control" [(ngModel)]="newProduct.name">
+                </div>
+                <div class="form-group">
+                    <label for="">Price:</label>
+                    <input type="text" class="form-control" [(ngModel)]="newProduct.price">
+                </div>
+                <div class="form-group">
+                    <label for="">Category:</label>
+                    <select [(ngModel)]="newProduct.category">
+                        <option *ngFor="let c of categories" [ngValue]="c">{{c.name}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="">Image:</label>
+                    <input type="text" class="form-control" [(ngModel)]="newProduct.image">
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" (click)="createProduct()">Save</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div id="editProduct" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Edit Product</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="">Name:</label>
+                    <input type="text" class="form-control" [ngModel]="selctedProduct?.name"
+                           (ngModelChange)="selctedProduct.name=$event">
+                </div>
+                <div class="form-group">
+                    <label for="">Price:</label>
+                    <input type="text" class="form-control" [ngModel]="selctedProduct?.price"
+                           (ngModelChange)="selctedProduct.price=$event">
+                </div>
+                <div class="form-group">
+                    <label for="">Category:</label>
+                    <select [ngModel]="selctedProduct?.category">
+                        <option *ngFor="let c of categories" [ngValue]="c">{{c.name}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="">Image:</label>
+                    <input type="text" class="form-control" [ngModel]="selctedProduct?.image"
+                           (ngModelChange)="selctedProduct.image=$event">
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" (click)="updateProduct()">Save</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!--USERS-->
+<div id="createUser" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">New User</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="">Email:</label>
+                    <input type="text" class="form-control" [(ngModel)]="newUser.email">
+                </div>
+                <div class="form-group">
+                    <label for="">Password:</label>
+                    <input type="text" class="form-control" [(ngModel)]="newUser.password">
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" (click)="createUser()">Save</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div id="editUser" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Edit User</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="">Password:</label>
+                    <input type="text" class="form-control" [ngModel]="selectedUser?.password"
+                           (ngModelChange)="selectedUser.password=$event">
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" (click)="updateUser()">Save</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>

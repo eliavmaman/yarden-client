@@ -106,47 +106,77 @@ export class GlobalService {
 
         var data = {email: email, password: password};
         return this.http.post('http://localhost:3000/api/login', data).map(res => res.json());
-
     }
 
-    // GET
-    getProducts() {
-        return this.http.get('http://localhost:3000/api/products').map(res => res.json());
-    }
-
-    getUsers() {
-        return this.http.get('http://localhost:3000/api/users').map(res => res.json());
-    }
-
+    // CATEGORIES
     getCategories() {
         return this.http.get('http://localhost:3000/api/categories').map(res => res.json());
-    }
-
-    getOrders() {
-        return this.http.get('http://localhost:3000/api/orders').map(res => res.json());
-    }
-
-    // POST
-    createProducts(p: any) {
-        return this.http.post('http://localhost:3000/api/products', p).map(res => res.json());
     }
 
     createCategories(c: any) {
         return this.http.post('http://localhost:3000/api/categories', c).map(res => res.json());
     }
 
-    createOrders(o) {
-        return this.http.post('http://localhost:3000/api/orders', o).map(res => res.json());
-    }
-
-
-    //PUT
-    updateProducts(p: any) {
-        return this.http.put('http://localhost:3000/api/products/' + p._id, p).map(res => res.json());
-    }
-
-    updateCategories(c: any) {
+    updateCategory(c: any) {
         return this.http.put('http://localhost:3000/api/categories/' + c._id, c).map(res => res.json());
     }
+
+    deleteCategories(c: any) {
+        return this.http.delete('http://localhost:3000/api/categories/' + c._id, c).map(res => res.json());
+    }
+
+
+    //PRODUCTS
+    getProducts() {
+        return this.http.get('http://localhost:3000/api/products').map(res => res.json());
+    }
+
+    createProducts(c: any) {
+        return this.http.post('http://localhost:3000/api/Products', c).map(res => res.json());
+    }
+
+    updateProducts(c: any) {
+        return this.http.put('http://localhost:3000/api/Products/' + c._id, c).map(res => res.json());
+    }
+
+    deleteProducts(c: any) {
+        return this.http.delete('http://localhost:3000/api/Products/' + c._id, c).map(res => res.json());
+    }
+
+
+    //USERS
+    getUsers() {
+        return this.http.get('http://localhost:3000/api/Users').map(res => res.json());
+    }
+
+    createUser(c: any) {
+        return this.http.post('http://localhost:3000/api/Users', c).map(res => res.json());
+    }
+
+    updateUser(c: any) {
+        return this.http.put('http://localhost:3000/api/Users/' + c._id, c).map(res => res.json());
+    }
+
+    deleteUser(c: any) {
+        return this.http.delete('http://localhost:3000/api/Users/' + c._id, c).map(res => res.json());
+    }
+
+    //ORDERS
+    getOrders() {
+        return this.http.get('http://localhost:3000/api/Orders').map(res => res.json());
+    }
+
+    createOrders(c: any) {
+        return this.http.post('http://localhost:3000/api/Orders', c).map(res => res.json());
+    }
+
+    updateOrders(c: any) {
+        return this.http.put('http://localhost:3000/api/Orders/' + c._id, c).map(res => res.json());
+    }
+
+    deleteOrders(c: any) {
+        return this.http.delete('http://localhost:3000/api/Orders/' + c._id, c).map(res => res.json());
+    }
+
 
 }

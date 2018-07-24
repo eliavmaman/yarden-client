@@ -16,9 +16,9 @@ import {NotificationsComponent} from './components/notifications/notifications.c
 
 
 import {HomeComponent} from './components/home/home.component';
-import {BookComponent} from "./components/book/book.component";
+//import {BookComponent} from "./components/book/book.component";
 import {BooksComponent} from "./components/books/books.component";
-import {AddUpdateBookComponent} from "./components/add-update-book/add-update-book.component";
+//import {AddUpdateBookComponent} from "./components/add-update-book/add-update-book.component";
 import {A2Edatetimepicker} from "ng2-eonasdan-datetimepicker";
 import {TitlePipe} from './pipes/title/title.pipe';
 import { ConfirmationModalComponent } from './components/confirmation-dialog/confirmation-dialog.component';
@@ -28,13 +28,15 @@ import {Authervice} from "./services/auth.service";
 import { ProductsComponent } from './components/products/products.component';
 import { CategoriesComponent } from './components/categories/categories.component';
 import { CartComponent } from './components/cart/cart.component';
-import { AdminComponent } from './admin/admin.component';
+import {AdminComponent} from "./components/admin/admin.component";
+//import { AdminComponent } from './admin/admin.component';
 
 
 const appRoutes: Routes = [
     {path: '', component: LoginComponent},
     {path: 'signup', component: SignupComponent},
     {path: 'home', component: HomeComponent},
+    {path: 'admin', component: AdminComponent},
 ];
 
 @NgModule({
@@ -42,10 +44,10 @@ const appRoutes: Routes = [
         AppComponent,
         NavbarComponent,
         NotificationsComponent,
-        BookComponent,
+       // BookComponent,
         BooksComponent,
         HomeComponent,
-        AddUpdateBookComponent,
+        //AddUpdateBookComponent,
         TitlePipe,
         ConfirmationModalComponent,
         LoginComponent,

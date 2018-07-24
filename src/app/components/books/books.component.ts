@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {GlobalService} from "../../services/global.service";
 import {Book} from "../../models/Book";
-import {AddUpdateBookComponent} from "../add-update-book/add-update-book.component";
+//import {AddUpdateBookComponent} from "../add-update-book/add-update-book.component";
 import {NotificationsComponent} from "../notifications/notifications.component";
 import {ConfirmationModalComponent} from "../confirmation-dialog/confirmation-dialog.component";
 import {AfterViewInit} from "@angular/core";
@@ -13,7 +13,7 @@ import {AfterViewInit} from "@angular/core";
     styleUrls: ['./books.component.css']
 })
 export class BooksComponent implements OnInit, AfterViewInit {
-    @ViewChild('addUpdateModal') addUpdateModal: AddUpdateBookComponent;
+   // @ViewChild('addUpdateModal') addUpdateModal: AddUpdateBookComponent;
     @ViewChild('notification') notification: NotificationsComponent;
     @ViewChild('confirm1') confirm: ConfirmationModalComponent;
     books: Book[];
@@ -58,7 +58,7 @@ export class BooksComponent implements OnInit, AfterViewInit {
 
     onEdit(book: Book) {
         this.selectedBook = book;
-        this.addUpdateModal.openModal(this.selectedBook);
+     //   this.addUpdateModal.openModal(this.selectedBook);
     }
 
     onDelete(book: Book) {
