@@ -13,11 +13,11 @@ export class LoginComponent implements OnInit {
     password = '';
 
     login() {
-        this.service.signin(this.email, this.password).subscribe((res) => {
-            if(res.data.email=='y@p.com'){
-                res.data.role='admin';
+        this.service.signin(this.email, this.password).subscribe((res:any) => {
+            if(res.email=='y@p.com'){
+                res.role='admin';
             }
-            this.auth.setUser(res.data);
+            this.auth.setUser(res);
             this.router.navigateByUrl('home');
         });
     }

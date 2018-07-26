@@ -2,16 +2,19 @@ import {Injectable} from '@angular/core';
 import 'rxjs/add/operator/map';
 
 import {Observable} from "rxjs/Observable";
-
 import "rxjs/Rx";
 import {Subject} from "rxjs/Subject";
 import {Book} from "../models/Book";
-import {Http, Response} from "@angular/http";
+import {Http, Response, Headers} from "@angular/http";
+
+import * as _ from "lodash"
 
 
 @Injectable()
 export class GlobalService {
 
+    onProductAddCallback: Subject<any> = new Subject<any>();
+    onProductAddCallback$ = this.onProductAddCallback.asObservable();
     private bookSubject = new Subject<any>();
 
     private books: Book[] = [
@@ -35,6 +38,11 @@ export class GlobalService {
         }
     ];
 
+    private productsInBusket: any = {
+        products: [],
+        total: 0
+    };
+
     constructor(private http: Http) {
 
     }
@@ -42,37 +50,6 @@ export class GlobalService {
     getBooks(): Observable<Book[]> {
 
         return Observable.of(this.books);
-    }
-
-
-    addBook(book: Book) {
-
-        let founded = this.books.find((b: Book) => {
-            return b.title.toLowerCase() === book.title.toLowerCase();
-        });
-        if (founded) {
-            this.bookSubject.next({books: this.books, error: 'Book with the same title already exist'});
-            return;
-        }
-        book.id = this.books[this.books.length - 1].id++;
-        this.books.push(book);
-
-
-        this.bookSubject.next({books: this.books});
-    }
-
-    updateBook(book: Book) {
-
-
-        let foundedBook = this.books.find((b) => {
-            return b.id == book.id;
-        });
-
-        foundedBook.title = book.title;
-        foundedBook.author = book.author;
-        foundedBook.date = book.date;
-
-        this.bookSubject.next({books: this.books});
     }
 
     deleteBook(book: Book) {
@@ -93,6 +70,47 @@ export class GlobalService {
 
     private handleError(error: Response) {
         return Observable.throw(error.statusText);
+    }
+
+    get getBasket() {
+        return this.productsInBusket;
+    }
+
+
+    removeFromBusket(p: any) {
+        let founded: any = _.find(this.productsInBusket.products, (fp) => {
+            return fp._id.toString() == p._id.toString();
+        });
+
+        if (founded) {
+            this.productsInBusket.products.splice(founded, 1);
+            this.productsInBusket.total = this.getTotalBasket();
+            this.onProductAddCallback.next(this.productsInBusket);
+        }
+    }
+
+    addProductToBasket(p) {
+        let founded: any = _.find(this.productsInBusket.products, (fp) => {
+            return fp._id.toString() == p._id.toString();
+        });
+
+        if (founded) {
+            founded.count++;
+        } else {
+            p.count = 1;
+            this.productsInBusket.products.push(p);
+        }
+
+        this.productsInBusket.total = this.getTotalBasket();
+        this.onProductAddCallback.next(this.productsInBusket);
+    }
+
+    private getTotalBasket() {
+        let sum = 0;
+        this.productsInBusket.products.forEach((bp) => {
+            sum += bp.count;
+        });
+        return sum;
     }
 
     signup(email, password) {
@@ -178,5 +196,9 @@ export class GlobalService {
         return this.http.delete('http://localhost:3000/api/Orders/' + c._id, c).map(res => res.json());
     }
 
+    getBitcoinRate() {
+        return this.http.get('https://api.coindesk.com/v1/bpi/currentprice.json').map(res => res.json());
+
+    }
 
 }

@@ -2,6 +2,9 @@
 
 <app-notifications #notification [alertClass]="alertClass" [alertMessage]="alertMessage"
                    [alertType]="alertType"></app-notifications>
+<div class="alert alert-success" [hidden]="!addedSuccess">
+    <strong>Success!</strong> Indicates a successful or positive action.
+</div>
 
 <div class="row">
 
@@ -22,7 +25,7 @@
 
                 <div class="row">
                     <div class="col-md-12">
-                        <a class="btn btn-success btn-product"><span class="glyphicon glyphicon-shopping-cart"></span>
+                        <a class="btn btn-success btn-product" (click)="addProduct(p)"><span class="glyphicon glyphicon-shopping-cart"></span>
                             Buy</a></div>
                 </div>
                 <p></p>

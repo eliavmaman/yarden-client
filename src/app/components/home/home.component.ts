@@ -11,7 +11,7 @@ import {GlobalService} from "../../services/global.service";
 export class HomeComponent implements OnInit {
 
     @ViewChild('notification') notification: NotificationsComponent;
-
+    addedSuccess: boolean = false;
     products: any[];
     selectedProduct: any;
 
@@ -19,6 +19,7 @@ export class HomeComponent implements OnInit {
     alertType: string;
     alertMessage: string;
     alertClass: string;
+    card:any;
 
     constructor(private service: GlobalService) {
     }
@@ -26,8 +27,16 @@ export class HomeComponent implements OnInit {
     ngOnInit() {
 
         this.service.getProducts().subscribe((res) => {
-            this.products = res.data;
-        })
+            this.products = res;
+        });
+
+    }
+
+    addProduct(p: any) {
+        this.service.addProductToBasket(p);
+        this.addedSuccess = true;
+        setTimeout(() => this.addedSuccess = false, 2000);
+
     }
 
 }

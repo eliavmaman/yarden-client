@@ -29,14 +29,20 @@ import { ProductsComponent } from './components/products/products.component';
 import { CategoriesComponent } from './components/categories/categories.component';
 import { CartComponent } from './components/cart/cart.component';
 import {AdminComponent} from "./components/admin/admin.component";
+import { BasketComponent } from './components/basket/basket.component';
+import { OrderComponent } from './components/order/order.component';
 //import { AdminComponent } from './admin/admin.component';
 
 
 const appRoutes: Routes = [
-    {path: '', component: LoginComponent},
+    {path: '', component: HomeComponent},
     {path: 'signup', component: SignupComponent},
+    {path: 'login', component: LoginComponent},
     {path: 'home', component: HomeComponent},
     {path: 'admin', component: AdminComponent},
+    {path: 'basket', component: BasketComponent},
+    {path: 'order', component: OrderComponent},
+
 ];
 
 @NgModule({
@@ -55,7 +61,9 @@ const appRoutes: Routes = [
         ProductsComponent,
         CategoriesComponent,
         CartComponent,
-        AdminComponent
+        AdminComponent,
+        BasketComponent,
+        OrderComponent
     ],
     imports: [
         BrowserModule,

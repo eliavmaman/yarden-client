@@ -1,28 +1,37 @@
 <nav class="navbar navbar-default">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="#"> </a>
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#"> </a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav navbar-left">
+                <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a [routerLink]="['/']">Home</a>
+                </li>
+                <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}" *ngIf="isLoggedIn"><a
+                        [routerLink]="['admin']">Admin</a></li>
+                <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}" *ngIf="!isLoggedIn"><a
+                        [routerLink]="['login']">Login</a></li>
+                <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}" *ngIf="!isLoggedIn"><a
+                        [routerLink]="['signup']">Register</a></li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+
+
+                <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a
+                        [routerLink]="['basket']"><i class="glyphicon glyphicon-shopping-cart"></i> ({{basket.total}})</a>
+                </li>
+                <!--<li [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}"><a [routerLink]="['/']">Users</a></li>-->
+
+
+            </ul>
+        </div><!--/.nav-collapse -->
     </div>
-    <div id="navbar" class="collapse navbar-collapse">
-      <ul class="nav navbar-nav navbar-left">
-        <li [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}"><a [routerLink]="['/']">Home</a></li>
-        <li [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}"><a [routerLink]="['admin']">Admin</a></li>
-      </ul>
-
-      <ul class="nav navbar-nav navbar-right">
-
-
-        <li [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}"><a [routerLink]="['/']">Users</a></li>
-        <!--<li [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}"><a [routerLink]="['/']">Users</a></li>-->
-
-
-      </ul>
-    </div><!--/.nav-collapse -->
-  </div>
 </nav>
