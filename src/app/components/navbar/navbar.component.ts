@@ -11,18 +11,25 @@ import {GlobalService} from "../../services/global.service";
 })
 export class NavbarComponent implements OnInit {
     isLoggedIn = false;
-    basket:any={};
-    constructor(public router: Router, private auth: Authervice,private service: GlobalService) {
-        this.isLoggedIn=this.auth.getUser()?true:false;
+    numberOgUsers: string = "0";
+    basket: any = {};
+
+    constructor(public router: Router, private auth: Authervice, private service: GlobalService) {
+        this.isLoggedIn = this.auth.getUser() ? true : false;
+
+        //this.numberOgUsers = this.service.getNumOfUsers;
 
     }
 
     ngOnInit() {
         this.service.onProductAddCallback$.subscribe(data => {
-           // this.zone.run(() => {
-                this.basket= data;
-            //});
-        })
+            this.basket = data;
+        });
+
+        //this.numberOgUsers= this.service.getNumOfUsers;
+        this.service.onUserLoggedCallback$.subscribe(data => {
+            this.numberOgUsers = data;
+        });
     }
 
     // onLogoutClick(){

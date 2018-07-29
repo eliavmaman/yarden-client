@@ -6,6 +6,7 @@ import "rxjs/Rx";
 import {Subject} from "rxjs/Subject";
 import {Book} from "../models/Book";
 import {Http, Response, Headers} from "@angular/http";
+import * as io from 'socket.io-client';
 
 import * as _ from "lodash"
 
@@ -15,6 +16,11 @@ export class GlobalService {
 
     onProductAddCallback: Subject<any> = new Subject<any>();
     onProductAddCallback$ = this.onProductAddCallback.asObservable();
+
+    onUserLoggedCallback: Subject<any> = new Subject<any>();
+    onUserLoggedCallback$ = this.onUserLoggedCallback.asObservable();
+
+    private socket: SocketIOClient.Socket; // The client instance of socket.io
     private bookSubject = new Subject<any>();
 
     private books: Book[] = [
@@ -38,13 +44,21 @@ export class GlobalService {
         }
     ];
 
+
     private productsInBusket: any = {
         products: [],
         total: 0
     };
 
-    constructor(private http: Http) {
+     numOfusers: string = "0";
 
+    constructor(private http: Http) {
+        this.socket = io('http://localhost:3000/');
+
+        this.socket.on('userLoggedin', (numOfusers: any) => {
+            this.onUserLoggedCallback.next(numOfusers);
+        //    this.numOfusers = numOfusers;
+        });
     }
 
     getBooks(): Observable<Book[]> {
@@ -74,6 +88,10 @@ export class GlobalService {
 
     get getBasket() {
         return this.productsInBusket;
+    }
+
+    get getNumOfUsers() {
+        return this.numOfusers;
     }
 
 
@@ -118,6 +136,10 @@ export class GlobalService {
         var data = {email: email, password: password};
         return this.http.post('http://localhost:3000/api/register', data).map(res => res.json());
 
+    }
+
+    emitEventOnLoggedIn() {
+        this.socket.emit('userLoggedin');
     }
 
     signin(email, password) {

@@ -24,9 +24,10 @@
 
             <ul class="nav navbar-nav navbar-right">
 
-
-                <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a
-                        [routerLink]="['basket']"><i class="glyphicon glyphicon-shopping-cart"></i> ({{basket.total}})</a>
+                <li><a>Logged users ({{numberOgUsers}})</a></li>
+                <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+                    <a [routerLink]="['basket']"><i class="glyphicon glyphicon-shopping-cart"></i>
+                        ({{basket.total}})</a>
                 </li>
                 <!--<li [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}"><a [routerLink]="['/']">Users</a></li>-->
 
