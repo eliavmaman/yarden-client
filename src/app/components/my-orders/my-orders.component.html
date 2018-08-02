@@ -1,0 +1,39 @@
+<style>
+    .arc text {
+        font: 10px sans-serif;
+        text-anchor: middle;
+    }
+
+    .arc path {
+        stroke: #fff;
+    }
+
+    .title {
+        fill: teal;
+        font-weight: bold;
+    }
+</style>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<div class="page-header">
+    My orders
+</div>
+<table class="table">
+    <thead>
+    <tr>
+        <th>Date</th>
+        <th>Is Bitcoin</th>
+        <th>Products</th>
+        <th>Price</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let o of orders">
+        <td>{{o.order_date}}</td>
+        <td>{{o.is_bitcoin}}</td>
+        <td><span class="badge" *ngFor="let p of o.products">{{p.name}}</span></td>
+        <td>{{o.price}}</td>
+    </tr>
+    </tbody>
+</table>
+
+<svg width="500" height="400"></svg>

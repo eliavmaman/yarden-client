@@ -16,6 +16,8 @@
                 </li>
                 <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}" *ngIf="isLoggedIn"><a
                         [routerLink]="['admin']">Admin</a></li>
+                <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}" *ngIf="isLoggedIn"><a
+                        [routerLink]="['myorder']">My orders</a></li>
                 <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}" *ngIf="!isLoggedIn"><a
                         [routerLink]="['login']">Login</a></li>
                 <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}" *ngIf="!isLoggedIn"><a
@@ -27,7 +29,8 @@
                 <li><a>Logged users ({{numberOgUsers}})</a></li>
                 <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
                     <a [routerLink]="['basket']"><i class="glyphicon glyphicon-shopping-cart"></i>
-                        ({{basket.total}})</a>
+                        ( {{basket.totalItems}} )
+                    </a>
                 </li>
                 <!--<li [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}"><a [routerLink]="['/']">Users</a></li>-->
 

@@ -12,7 +12,7 @@ import {GlobalService} from "../../services/global.service";
 export class NavbarComponent implements OnInit {
     isLoggedIn = false;
     numberOgUsers: string = "0";
-    basket: any = {};
+    basket: any = {products: [], total: 0,totalItems:0};
 
     constructor(public router: Router, private auth: Authervice, private service: GlobalService) {
         this.isLoggedIn = this.auth.getUser() ? true : false;

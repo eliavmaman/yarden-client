@@ -1,3 +1,19 @@
+<style>
+    .arc text {
+        font: 10px sans-serif;
+        text-anchor: middle;
+    }
+
+    .arc path {
+        stroke: #fff;
+    }
+
+    .title {
+        fill: teal;
+        font-weight: bold;
+    }
+</style>
+<script src="https://d3js.org/d3.v4.min.js"></script>
 <h1 class="page-header">Admin Page</h1>
 
 
@@ -5,6 +21,7 @@
     <li class="active"><a data-toggle="tab" href="#Categories">Categories</a></li>
     <li><a data-toggle="tab" href="#Products">Products</a></li>
     <li><a data-toggle="tab" href="#Users">Users</a></li>
+    <li><a data-toggle="tab" href="#Charts">Charts</a></li>
 
 </ul>
 
@@ -134,6 +151,14 @@
 
                 </div>
             </div>
+
+        </div>
+    </div>
+    <div id="Charts" class="tab-pane fade">
+
+
+        <div class="container">
+            <svg width="500" height="400"></svg>
 
         </div>
     </div>

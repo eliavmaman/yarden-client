@@ -12,7 +12,7 @@
         <label><input type="checkbox" [checked]="order.is_bitcoin" (change)="onBitcoinPressed()">Pay with bitcoin (1bit = {{rate}})</label>
     </div>
 </div>
-
+<h3>Total: {{total}}</h3>
 <div class="form-group">
 
     <button class="btn btn-success" (click)="pay()"> Pay</button>

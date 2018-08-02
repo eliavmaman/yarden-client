@@ -50,14 +50,14 @@ export class GlobalService {
         total: 0
     };
 
-     numOfusers: string = "0";
+    numOfusers: string = "0";
 
     constructor(private http: Http) {
         this.socket = io('http://localhost:3000/');
 
         this.socket.on('userLoggedin', (numOfusers: any) => {
             this.onUserLoggedCallback.next(numOfusers);
-        //    this.numOfusers = numOfusers;
+            //    this.numOfusers = numOfusers;
         });
     }
 
@@ -119,14 +119,23 @@ export class GlobalService {
             this.productsInBusket.products.push(p);
         }
 
+        this.productsInBusket.totalItems = this.getTotalItemsBasket();
         this.productsInBusket.total = this.getTotalBasket();
         this.onProductAddCallback.next(this.productsInBusket);
     }
 
-    private getTotalBasket() {
+    private getTotalItemsBasket() {
         let sum = 0;
         this.productsInBusket.products.forEach((bp) => {
             sum += bp.count;
+        });
+        return sum;
+    }
+
+    private getTotalBasket() {
+        let sum = 0;
+        this.productsInBusket.products.forEach((bp: any) => {
+            sum += bp.price * bp.count;
         });
         return sum;
     }
@@ -189,6 +198,10 @@ export class GlobalService {
         return this.http.get('http://localhost:3000/api/Users').map(res => res.json());
     }
 
+    getUserOrders(id: any) {
+        return this.http.get('http://localhost:3000/api/Users/' + id + '/orders').map(res => res.json());
+    }
+
     createUser(c: any) {
         return this.http.post('http://localhost:3000/api/Users', c).map(res => res.json());
     }
@@ -202,8 +215,8 @@ export class GlobalService {
     }
 
     //ORDERS
-    getOrders() {
-        return this.http.get('http://localhost:3000/api/Orders').map(res => res.json());
+    getOrders(id) {
+        return this.http.get('http://localhost:3000/api/Orders/').map(res => res.json());
     }
 
     createOrders(c: any) {
@@ -221,6 +234,14 @@ export class GlobalService {
     getBitcoinRate() {
         return this.http.get('https://api.coindesk.com/v1/bpi/currentprice.json').map(res => res.json());
 
+    }
+
+    getProdbycat(){
+        return this.http.get('http://localhost:3000/api/Prodbycat').map(res => res.json());
+    }
+
+    getMostRecommandedProduct(id){
+        return this.http.get('http://localhost:3000/api/getMostRecommandedProduct/'+id).map(res => res.json());
     }
 
 }

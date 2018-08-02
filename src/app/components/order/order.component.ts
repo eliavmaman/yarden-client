@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {GlobalService} from "../../services/global.service";
+import {Authervice} from "../../services/auth.service";
 
 @Component({
     selector: 'app-order',
@@ -7,9 +8,15 @@ import {GlobalService} from "../../services/global.service";
     styleUrls: ['./order.component.css']
 })
 export class OrderComponent implements OnInit {
+    basket = {
+        products: [],
+        totalItems: [],
+        total: 0
+    };
+
     order = {
         user: '',
-        products: {products:[]},
+        products: [],
         price: 0,
         order_date: new Date(),
         card_digits: '',
@@ -17,46 +24,50 @@ export class OrderComponent implements OnInit {
     };
     rate: number = 0;
 
-    total=0;
+    total = 0;
+    user: any;
 
-    constructor(private service: GlobalService,) {
+    constructor(private service: GlobalService, private auth: Authervice) {
+        this.user = this.auth.getUser();
+        this.order.user = this.user._id;
     }
 
-    busket: any;
 
     ngOnInit() {
-        this.order.products = this.service.getBasket;
-        this.service.getBitcoinRate().subscribe((res:any) => {
+        this.basket = this.service.getBasket;
+        if (this.basket)
+            this.total = this.basket.total;
+        this.service.getBitcoinRate().subscribe((res: any) => {
             this.rate = res.bpi.USD.rate_float;
         });
+        // this.service.onProductAddCallback$.subscribe(data => {
+        //     this.basket = data;
+        // });
 
-        // Array.prototype.sum = function (prop) {
-        //     let total = 0
-        //     for ( var i = 0, _len = this.length; i < _len; i++ ) {
-        //         total += this[i][prop]
-        //     }
-        //     return total
-        // }
     }
 
     pay() {
+        this.order.products = this.basket.products;
+        this.order.price = this.total;
+        this.order.order_date = new Date();
+        this.service.createOrders(this.order).subscribe((res: any) => {
+            alert("Order created successfully");
+        })
+    };
 
-    }
-    onBitcoinPressed(){
+
+    onBitcoinPressed() {
         this.order.is_bitcoin = !this.order.is_bitcoin;
-        let sum=0;
-        if(this.order.products.products){
-            this.order.products.products.forEach((p)=>{
-                sum+=p.price;
-            });
-            //let sum=this.order.products.products.sum('price');
-            if(this.order.is_bitcoin ){
-                this.total=this.rate/sum;
-            }
+
+
+        if (this.order.is_bitcoin) {
+            this.total = this.basket.total / this.rate;
+        } else {
+            this.total = this.basket.total;
         }
 
-    }
 
+    }
 
 
 }

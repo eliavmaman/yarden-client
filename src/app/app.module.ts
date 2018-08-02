@@ -31,7 +31,8 @@ import { CartComponent } from './components/cart/cart.component';
 import {AdminComponent} from "./components/admin/admin.component";
 import { BasketComponent } from './components/basket/basket.component';
 import { OrderComponent } from './components/order/order.component';
-//import { AdminComponent } from './admin/admin.component';
+import { MyOrdersComponent } from './components/my-orders/my-orders.component';
+
 
 
 const appRoutes: Routes = [
@@ -42,6 +43,7 @@ const appRoutes: Routes = [
     {path: 'admin', component: AdminComponent},
     {path: 'basket', component: BasketComponent},
     {path: 'order', component: OrderComponent},
+    {path: 'myorder', component: MyOrdersComponent},
 
 ];
 
@@ -63,7 +65,8 @@ const appRoutes: Routes = [
         CartComponent,
         AdminComponent,
         BasketComponent,
-        OrderComponent
+        OrderComponent,
+        MyOrdersComponent
     ],
     imports: [
         BrowserModule,
