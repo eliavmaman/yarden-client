@@ -8,9 +8,20 @@
         stroke: #fff;
     }
 
-    .title {
-        fill: teal;
-        font-weight: bold;
+    .axis path,
+    .axis line {
+        fill: none;
+        stroke: black;
+        shape-rendering: crispEdges;
+    }
+
+    text,
+    .axis text {
+        font-size: 11px;
+    }
+
+    rect:hover {
+        fill: orange;
     }
 </style>
 <script src="https://d3js.org/d3.v4.min.js"></script>
@@ -69,6 +80,22 @@
         <h3>Products</h3>
 
         <div class="container">
+            <section>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <label>Search by name</label>
+                        <input [(ngModel)]="searchText" placeholder="" class="form-control"/>
+                    </div>
+                    <div class="col-sm-3">
+                        <label>Search items less then price</label>
+                        <input type="number" [(ngModel)]="searchPrice" placeholder="" class="form-control"/>
+                    </div>
+                    <div class="col-sm-3">
+                        <label>Search items by category</label>
+                        <input type="text" [(ngModel)]="searchCat" placeholder="" class="form-control"/>
+                    </div>
+                </div>
+            </section>
             <div class="row">
                 <div class="col-sm-10">
                     <table class="table table-hover">
@@ -82,7 +109,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr *ngFor="let c of products">
+                        <tr *ngFor="let c of products | filter : searchText | filterCat : searchCat | filterByPrice: searchPrice">
                             <td>{{c?.name}}</td>
                             <td>{{c?.price}}</td>
                             <td>{{c?.category.name}}</td>
@@ -158,9 +185,13 @@
 
 
         <div class="container">
+            <h3>Pie chart Products per category</h3>
             <svg width="500" height="400"></svg>
-
+            <h3>Donut chart By gender</h3>
+            <svg id="byGender" width="960" height="550"></svg>
         </div>
+
+
     </div>
 </div>
 <!--MODALS-->

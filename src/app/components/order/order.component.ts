@@ -37,6 +37,8 @@ export class OrderComponent implements OnInit {
         this.basket = this.service.getBasket;
         if (this.basket)
             this.total = this.basket.total;
+
+        // Get the bitcoin rate
         this.service.getBitcoinRate().subscribe((res: any) => {
             this.rate = res.bpi.USD.rate_float;
         });
@@ -45,7 +47,7 @@ export class OrderComponent implements OnInit {
         // });
 
     }
-
+//Pay function set the order to db
     pay() {
         this.order.products = this.basket.products;
         this.order.price = this.total;
@@ -55,7 +57,7 @@ export class OrderComponent implements OnInit {
         })
     };
 
-
+//when clcick on checkbox it convert the total to bitcoin
     onBitcoinPressed() {
         this.order.is_bitcoin = !this.order.is_bitcoin;
 

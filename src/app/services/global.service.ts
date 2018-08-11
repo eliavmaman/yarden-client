@@ -61,26 +61,6 @@ export class GlobalService {
         });
     }
 
-    getBooks(): Observable<Book[]> {
-
-        return Observable.of(this.books);
-    }
-
-    deleteBook(book: Book) {
-
-        let index = this.books.findIndex(x => x.id == book.id);
-
-        if (index > -1) {
-            this.books.splice(index, 1);
-
-
-            this.bookSubject.next({books: this.books});
-        }
-    }
-
-    booksListOnUpdate(): Observable<Book[]> {
-        return this.bookSubject.asObservable();
-    }
 
     private handleError(error: Response) {
         return Observable.throw(error.statusText);
@@ -140,9 +120,9 @@ export class GlobalService {
         return sum;
     }
 
-    signup(email, password) {
+    signup(email, password, gender) {
 
-        var data = {email: email, password: password};
+        var data = {email: email, password: password, gender: gender};
         return this.http.post('http://localhost:3000/api/register', data).map(res => res.json());
 
     }
@@ -236,12 +216,21 @@ export class GlobalService {
 
     }
 
-    getProdbycat(){
+    getProdbycat() {
         return this.http.get('http://localhost:3000/api/Prodbycat').map(res => res.json());
     }
 
-    getMostRecommandedProduct(id){
-        return this.http.get('http://localhost:3000/api/getMostRecommandedProduct/'+id).map(res => res.json());
+    getLocations() {
+        return this.http.get('http://localhost:3000/api/maps').map(res => res.json());
+    }
+
+    getMlProduct(userId) {
+        return this.http.get('http://localhost:3000/api/users/' + userId + '/getml').map(res => res.json());
+    }
+
+//Gte the chart data by gender
+    groupByGender() {
+        return this.http.get('http://localhost:3000/api/groupByGender').map(res => res.json());
     }
 
 }

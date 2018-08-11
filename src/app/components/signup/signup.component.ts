@@ -11,14 +11,17 @@ export class SignupComponent implements OnInit {
     email = '';
     password = '';
 
-    signup() {
-        this.service.signup(this.email, this.password).subscribe(data => {
+    genders = ['Male', 'Female'];
+    gender = this.genders[0];
 
-            this.router.navigateByUrl('');
+    signup() {
+        this.service.signup(this.email, this.password, this.gender).subscribe(data => {
+
+            this.router.navigateByUrl('login');
         });
     }
 
-    constructor(private service: GlobalService,private router: Router) {
+    constructor(private service: GlobalService, private router: Router) {
     }
 
     ngOnInit() {

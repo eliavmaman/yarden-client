@@ -16,8 +16,11 @@ export class LoginComponent implements OnInit {
 
     constructor(private service: GlobalService, private auth: Authervice, private router: Router) {
     }
+    //login function
     login() {
         this.service.signin(this.email, this.password).subscribe((res:any) => {
+
+            //if user email is y@p.com' so set user to admin
             if(res.email=='y@p.com'){
                 res.role='admin';
             }
